@@ -9,7 +9,7 @@ __title__ = "Place views on sheets"
 __author__ = "Me"
 __doc__ = "--------"
 
-from Snippets._select import get_viewports
+from Snippets._select import get_viewports, get_a2_block
 from Snippets.size import get_view_size, get_scaled_size, get_viewport_dimensions
 from constants import Sizes
 
@@ -25,42 +25,6 @@ parameter_name = 'Type'
 
 
 # def determine_paper_size(view_):
-
-
-def get_a2_block():
-    #
-    title_blocks = (FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_TitleBlocks).WhereElementIsElementType().ToElements())
-    # title_block_ = None
-    #
-    # bbox = view_.get_BoundingBox(None)
-    # min_ = bbox.Min
-    # max_ = bbox.Max
-    #
-    # min_x = min_.X
-    # max_x = max_.X
-    # min_y = min_.Y
-    # max_y = max_.Y
-    #
-    # view_width = max_x - min_x
-    # view_height = max_y - min_y
-    #
-    # a1_title_block = None
-    a2_title_block = None
-
-    for q in title_blocks:
-        if q.FamilyName == "ALEA+ - A2 NEW":
-            a2_title_block = q
-            title_block_index = 1
-
-    # for qq in title_blocks:
-    #     if qq.FamilyName == "ALEA+ - A1 NEW":
-    #         a1_title_block = qq
-    #         title_block_index = 0
-    #
-    # if view_height * Sizes.cm_to_feet.value * 1.15 > Sizes.a2_paper_height.value:
-    #     return a1_title_block
-    # else:
-    return a2_title_block
 
 
 def get_room_type(number):

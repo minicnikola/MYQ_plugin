@@ -11,7 +11,7 @@ app      = __revit__.Application
 rvt_year = int(app.VersionNumber)
 
 
-class SectionGenerator():
+class SectionGenerator:
 
     def __init__(self, doc, origin, vector, width=1, height=1, offset=1, depth=1, depth_offset=1):
         """General class to create Sections and place them on sheets"""
