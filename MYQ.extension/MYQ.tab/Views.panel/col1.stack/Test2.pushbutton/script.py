@@ -32,7 +32,7 @@ def sort_views(views):
         view_number = view_name_split[0]
         view_name = view_name_split[1]
 
-        if not str(view_number).startswith('2'):
+        if not str(view_number).startswith('3'):
             continue
 
         if view_number in sorted_views:

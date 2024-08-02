@@ -73,6 +73,14 @@ def get_longest_line(viewport_lines):
 def create_scope_box(view):
     view_level = view.GenLevel
     print view_level.Name
+    sco = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Views).ToElements()
+    for c in sco:
+        p_n = c.GetParameters("View Name")
+        if len(p_n) == 0:
+            continue
+        m = p_n[0].AsString()
+        print m
+        print str(m).lower().find('scope')
     return ""
 
 
@@ -86,7 +94,7 @@ def main():
             v_name = view.Name
             v_split = v_name.split(' - ')
 
-            if v_name != "BF - 1002 - FURNITURE PLAN - Callout 15":
+            if v_name != "217 - Wardrobe 1":
                 continue
 
             # new_min_point = XYZ(0, 0, 0)

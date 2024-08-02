@@ -36,6 +36,13 @@ def get_sheets_by_room(room_number):
     return result
 
 
+def get_viewport_parameter_value(viewport, parameter_name):
+    parameters = viewport.Parameters
+    parameter = next((p for p in parameters if p.Definition.Name == parameter_name), None)
+    type_name = parameter.AsValueString()
+    return type_name
+
+
 def get_view_parameter_value(view, parameter_name):
     parameters = view.Parameters
     parameter = next((p for p in parameters if p.Definition.Name == parameter_name), None)
@@ -172,3 +179,68 @@ def get_a2_block():
     #     return a1_title_block
     # else:
     return a2_title_block
+
+
+def get_sheets_by_series(series):
+    all_sheets = FilteredElementCollector(doc).OfClass(ViewSheet).ToElements()
+    results = list()
+
+    for sheet in all_sheets:
+        sheet_series_param = sheet.GetParameters("Sheet series")
+
+        if len(sheet_series_param) == 0:
+            continue
+
+        sheet_series = sheet_series_param[0].AsString()
+
+        if sheet_series == series:
+            results.append(sheet)
+
+    return results
+
+
+def get_image_by_name(name):
+    results = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_RasterImages).ToElements()
+    for img in results:
+        print img
+        if name == img.GetParameters("Type Name")[0].AsString():
+            return img
+    return None
+
+
+def get_all_images():
+    results = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_RasterImages).ToElements()
+    return results
+
+
+def get_image_count(name):
+    results = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_RasterImages).ToElements()
+    count = 0
+    for img in results:
+        if name == img.GetParameters("Type Name")[0].AsString():
+            count += 1
+
+    return count
+
+
+def get_generic_annotation(name):
+    results = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_GenericAnnotation).ToElements()
+
+    for i in results:
+        if name == i.GetParameters("Type Name")[0].AsString():
+            return i
+    return None
+
+
+def get_view_name_from_viewport(viewport, par_name):
+    v_name = get_viewport_parameter_value(viewport, par_name)
+    return v_name
+
+
+def get_families_by_category(category):
+    results = FilteredElementCollector(doc).OfCategory(category).ToElements()
+    return results
+
+
+def get_family_by_category_and_type_name(category, type_name):
+    pass
