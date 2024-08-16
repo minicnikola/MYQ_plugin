@@ -1,5 +1,6 @@
 import pprint
 from operator import itemgetter
+import random
 
 import pyrevit.forms
 from Autodesk.Revit.DB import *
@@ -50,7 +51,13 @@ def create_sheet(name, number, title_block=None):
     if title_block is None:
         title_block = get_a2_block()
     sheet_ = ViewSheet.Create(doc, title_block.Id)
-    sheet_.SheetNumber = "ID - 3" + str(number)
+
+    try:
+        sheet_.SheetNumber = "ID - 3" + str(number)
+    except Exception as e:
+        print e
+        sheet_.SheetNumber = "ID - 3" + str(number) + str(random.choice(range(1, 30)))
+
     sheet_.GetParameters("Sheet Name")[0].Set(name)
     sheet_.GetParameters("Sheet Group")[0].Set("Interior")
     # WARNING this should be uncommented
@@ -607,8 +614,8 @@ def main():
             # if i == 20:
             #     break
             room_number = view_tuple[0]
-            if room_number.strip() != '010':
-                continue
+            # if room_number.strip() != '010':
+            #     continue
 
             # # TODO : delete this line
             # if len(view_tuple[1].items()) < 3:
